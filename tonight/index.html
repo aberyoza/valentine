@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="У мене до тебе одне питання">
+<meta property="og:title" content="Пікантне питання">
+<meta property="og:description" content="У мене до тебе одне питання">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💋</text></svg>">
+<style>body { margin: 0; } html { box-sizing: border-box; } :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }</style>
+<title>Пікантне питання</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&family=Nunito:wght@400;700;800&family=Rubik+Mono+One&display=swap">
+<style>
+  /* Layout: one-screen neon sign after midnight. Glowing question, lipstick-lips "ТАК" beside a small runaway "НІ"; "ТАК" throws a comic burst with a winking cartoon face over everything. Single committed dark look. */
+  :root {
+    color-scheme: dark;
+    --wine: #2a0815;       /* page ground */
+    --wine-soft: #45122b;  /* glow shapes */
+    --cream: #ffe9f1;      /* text */
+    --neon: #ff4f9a;       /* sign glow, burst */
+    --lips: #e3123f;
+    --lips-dark: #8f0a28;
+    --smoke: #6b4757;      /* the "no" chip */
+    --smoke-ink: #f1d9e3;
+    --sun: #ffd23f;        /* cartoon face */
+
+    --f-sign: "Lobster", "Brush Script MT", "Georgia", cursive;
+    --f-body: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --f-stamp: "Rubik Mono One", "Arial Black", "Helvetica Neue", sans-serif;
+  }
+
+  [hidden] { display: none !important; }
+  html, body { height: 100%; }
+  body {
+    background: var(--wine);
+    color: var(--cream);
+    font-family: var(--f-body);
+    font-size: 1rem;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .page {
+    min-height: 100%;
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    padding-inline: 16px;
+    padding-block: 32px;
+    position: relative;
+    isolation: isolate;
+  }
+  .page::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 30%, var(--wine-soft), transparent 70%),
+      radial-gradient(circle at 10% 90%, var(--wine-soft), transparent 30%);
+  }
+
+  .stage {
+    width: 100%;
+    max-width: 36rem;
+    display: grid;
+    justify-items: center;
+    gap: 1.75rem;
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-family: var(--f-stamp);
+    font-size: .68rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--neon);
+    border: 1.5px solid var(--neon);
+    border-radius: 4px;
+    padding: .35rem .6rem;
+  }
+
+  h1 {
+    font-family: var(--f-sign);
+    font-weight: 400;
+    font-size: clamp(2.3rem, 8vw, 4rem);
+    line-height: 1.1;
+    margin: 0;
+    text-wrap: balance;
+    text-shadow: 0 0 18px rgba(255, 79, 154, .35);
+  }
+  h1 .hot {
+    color: var(--neon);
+    text-shadow: 0 0 6px var(--neon), 0 0 22px var(--neon), 0 0 44px rgba(255, 79, 154, .6);
+    animation: flicker 4s infinite;
+  }
+  @keyframes flicker {
+    0%, 88%, 92%, 100% { opacity: 1; }
+    90% { opacity: .35; }
+    91% { opacity: .9; }
+  }
+
+  .choices {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2.25rem;
+    min-height: 9rem;
+  }
+
+  /* lipstick lips */
+  .yes {
+    position: relative;
+    width: 12rem;
+    aspect-ratio: 120 / 72;
+    max-width: 100%;
+    border: 0; padding: 0;
+    background: none;
+    cursor: pointer;
+    color: #fff;
+    transition: transform .25s cubic-bezier(.3, 1.6, .5, 1);
+    animation: pout 2.2s ease-in-out infinite;
+  }
+  .yes svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 14px rgba(227, 18, 63, .55)); }
+  .yes .lip { fill: var(--lips); }
+  .yes .seam { fill: none; stroke: var(--lips-dark); stroke-width: 3; stroke-linecap: round; }
+  .yes .gloss { fill: #fff; opacity: .35; }
+  .yes span {
+    position: relative;
+    display: block;
+    font-family: var(--f-stamp);
+    font-size: 1.5rem;
+    letter-spacing: .05em;
+    text-shadow: 0 2px 0 var(--lips-dark);
+  }
+  .yes:hover { transform: scale(1.08) rotate(-4deg); }
+  .yes:active { transform: scale(.95); }
+  .yes:focus-visible { outline: 3px dashed var(--neon); outline-offset: 8px; border-radius: 16px; }
+  @keyframes pout {
+    0%, 100% { scale: 1; }
+    50% { scale: 1.06; }
+  }
+
+  /* the runaway chip */
+  .no {
+    font-family: var(--f-stamp);
+    font-size: .8rem;
+    letter-spacing: .06em;
+    color: var(--smoke-ink);
+    background: var(--smoke);
+    border: 2px solid var(--smoke-ink);
+    border-radius: 999px;
+    padding: .5rem 1.05rem;
+    cursor: pointer;
+    user-select: none;
+    touch-action: none;
+    z-index: 5;
+  }
+  .no.loose {
+    position: fixed;
+    margin: 0;
+    transition: left .3s cubic-bezier(.2, .9, .3, 1.2), top .3s cubic-bezier(.2, .9, .3, 1.2), rotate .3s ease;
+  }
+  .no:focus-visible { outline: 3px dashed var(--smoke-ink); outline-offset: 4px; }
+  .no-slot { display: inline-block; visibility: hidden; }
+
+  .joke { min-height: 1.6em; margin: 0; font-weight: 800; font-size: 1.1rem; }
+  .joke.pop { animation: nudge .3s ease; }
+  @keyframes nudge { from { transform: translateY(6px); opacity: 0; } }
+
+  .tally {
+    font-family: var(--f-stamp);
+    font-size: .62rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .55;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* the comic pop-up */
+  .party {
+    position: fixed; inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    padding-inline: 16px;
+    padding-block: 24px;
+    background: rgba(42, 8, 21, .55);
+    backdrop-filter: blur(3px);
+  }
+  .card { display: grid; justify-items: center; gap: 1rem; text-align: center; max-width: 30rem; }
+  .boom {
+    position: relative;
+    width: min(78vw, 21rem);
+    aspect-ratio: 1;
+    animation: boom .7s cubic-bezier(.2, 1.6, .4, 1) both;
+  }
+  .boom > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .star { fill: var(--neon); stroke: var(--cream); stroke-width: 4; stroke-linejoin: round; }
+  .wow {
+    font-family: var(--f-stamp);
+    font-size: 30px;
+    fill: var(--sun);
+    stroke: var(--wine);
+    stroke-width: 6;
+    paint-order: stroke;
+    letter-spacing: 1px;
+  }
+  .face { transform-origin: 100px 112px; animation: bob 1.4s ease-in-out infinite; }
+  .tongue { transform-origin: 124px 140px; animation: lick 0.9s ease-in-out infinite; }
+  .eye-open { transform-origin: 134px 98px; animation: blink 3.2s infinite; }
+  @keyframes boom { from { transform: scale(.1) rotate(-25deg); } }
+  @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-4px) rotate(2deg); } }
+  @keyframes lick { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(14deg); } }
+  @keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.1); } }
+
+  .card h2 {
+    font-family: var(--f-sign);
+    font-weight: 400;
+    font-size: clamp(2rem, 7vw, 3rem);
+    line-height: 1.1;
+    margin: 0;
+    color: var(--cream);
+    text-shadow: 0 0 6px var(--neon), 0 0 22px var(--neon);
+  }
+  .card p { margin: 0; font-size: 1.1rem; line-height: 1.5; max-width: 30ch; }
+  .card .note { font-size: .95rem; opacity: .8; }
+
+  .more {
+    font-family: var(--f-stamp);
+    font-size: .78rem;
+    letter-spacing: .06em;
+    color: #fff;
+    background: var(--lips);
+    border: 2px solid var(--lips-dark);
+    border-radius: 999px;
+    padding: .7rem 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 var(--lips-dark);
+  }
+  .more:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--lips-dark); }
+  .more:focus-visible { outline: 3px dashed var(--cream); outline-offset: 4px; }
+
+  canvas#sky { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 30; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yes, h1 .hot, .face, .tongue, .eye-open, .boom { animation: none; }
+    .no.loose { transition-duration: .01s; }
+  }
+</style>
+</head>
+<body>
+
+<main class="page">
+  <section class="stage" id="ask">
+    <div class="eyebrow">18+ · Питання на вечір</div>
+    <h1>Бусінка, хочеш сьогодні <span class="hot">куні</span>?</h1>
+
+    <div class="choices">
+      <button class="yes" id="yes" type="button" aria-label="Так">
+        <svg viewBox="0 0 120 72" aria-hidden="true">
+          <path class="lip" d="M4 36 C 20 20, 36 8, 48 11 C 54 13, 58 17, 60 20 C 62 17, 66 13, 72 11 C 84 8, 100 20, 116 36 C 96 38, 76 35, 60 38 C 44 35, 24 38, 4 36 Z"/>
+          <path class="lip" d="M4 37 C 24 41, 44 41, 60 41 C 76 41, 96 41, 116 37 C 104 56, 84 68, 60 68 C 36 68, 16 56, 4 37 Z"/>
+          <path class="seam" d="M6 37 C 26 40, 44 39, 60 40 C 76 39, 94 40, 114 37"/>
+          <ellipse class="gloss" cx="44" cy="54" rx="12" ry="4"/>
+          <ellipse class="gloss" cx="40" cy="20" rx="7" ry="2.5" transform="rotate(-20 40 20)"/>
+        </svg>
+        <span>ТАК</span>
+      </button>
+      <button class="no" id="no" type="button">НІ</button>
+    </div>
+
+    <p class="joke" id="joke" aria-live="polite"></p>
+    <div class="tally" id="tally" hidden></div>
+  </section>
+</main>
+
+<section class="party" id="party" hidden>
+  <div class="card">
+    <div class="boom" aria-hidden="true">
+      <svg viewBox="0 0 200 200">
+        <polygon class="star" id="star"/>
+        <text class="wow" x="100" y="40" text-anchor="middle">ОГО!</text>
+        <g class="face">
+          <circle cx="100" cy="112" r="52" fill="var(--sun)" stroke="var(--wine)" stroke-width="5"/>
+          <ellipse cx="70" cy="126" rx="11" ry="6" fill="#ff6b9a" opacity=".75"/>
+          <ellipse cx="130" cy="126" rx="11" ry="6" fill="#ff6b9a" opacity=".75"/>
+          <!-- winking eye -->
+          <path d="M60 100 Q72 90 84 100" fill="none" stroke="var(--wine)" stroke-width="5" stroke-linecap="round"/>
+          <!-- raised brow + open eye -->
+          <path d="M120 78 Q134 68 148 77" fill="none" stroke="var(--wine)" stroke-width="5" stroke-linecap="round"/>
+          <g class="eye-open">
+            <ellipse cx="134" cy="98" rx="8" ry="10" fill="var(--wine)"/>
+            <circle cx="137" cy="94" r="2.6" fill="#fff"/>
+          </g>
+          <!-- smirk -->
+          <path d="M72 134 Q100 152 128 130" fill="none" stroke="var(--wine)" stroke-width="5" stroke-linecap="round"/>
+          <!-- tongue licking the corner -->
+          <g class="tongue">
+            <path d="M116 138 Q118 162 132 160 Q146 157 138 132 Z" fill="#ff4f7a" stroke="var(--wine)" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M128 140 L130 154" stroke="var(--wine)" stroke-width="2.5" stroke-linecap="round"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <h2>Оце я розумію відповідь 😏</h2>
+    <p>Тоді до вечора, бусінко. Язик уже на розминці 👅</p>
+    <p class="note" id="caught" hidden></p>
+    <button class="more" id="more" type="button">Ще раз 😈</button>
+  </div>
+</section>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<script>
+(() => {
+  const yes = document.getElementById("yes");
+  const no = document.getElementById("no");
+  const joke = document.getElementById("joke");
+  const tally = document.getElementById("tally");
+  const party = document.getElementById("party");
+  const caught = document.getElementById("caught");
+  const more = document.getElementById("more");
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // comic burst outline
+  (() => {
+    const pts = [];
+    const spikes = 14;
+    for (let i = 0; i < spikes * 2; i++) {
+      const a = (i / (spikes * 2)) * Math.PI * 2 - Math.PI / 2;
+      const r = i % 2 ? 66 + (i % 4) * 4 : 96;
+      pts.push((100 + Math.cos(a) * r).toFixed(1) + "," + (108 + Math.sin(a) * r).toFixed(1));
+    }
+    document.getElementById("star").setAttribute("points", pts.join(" "));
+  })();
+
+  // ---------- runaway "НІ" ----------
+  const jokes = [
+    "Ой, кнопка засоромилась 🙈",
+    "Хтось почервонів 🍒",
+    "Подумай ще раз… повільно 😏",
+    "Язик уже на розминці 👅",
+    "Кнопка «ні» пішла по вино 🍷",
+    "А якщо ще й масаж? 💆‍♀️",
+    "Я навіть свічки купив 🕯️",
+    "Тут лишились тільки хороші варіанти 😈",
+    "Вона сором'язливіша за тебе",
+    "Тисни «так», бусінко 💋",
+  ];
+  let attempts = 0;
+  let lastFlee = 0;
+  let pointer = null;
+
+  function plural(n) {
+    const t = n % 10, h = n % 100;
+    if (t === 1 && h !== 11) return "раз";
+    if (t >= 2 && t <= 4 && (h < 12 || h > 14)) return "рази";
+    return "разів";
+  }
+
+  function say() {
+    const line = attempts <= jokes.length ? jokes[attempts - 1] : jokes[Math.floor(Math.random() * jokes.length)];
+    joke.textContent = line;
+    joke.classList.remove("pop");
+    void joke.offsetWidth;
+    joke.classList.add("pop");
+    tally.hidden = false;
+    tally.textContent = `Спроб сказати «ні»: ${attempts}`;
+  }
+
+  function release() {
+    if (no.classList.contains("loose")) return;
+    const r = no.getBoundingClientRect();
+    const slot = document.createElement("span");
+    slot.className = "no-slot";
+    slot.style.width = r.width + "px";
+    slot.style.height = r.height + "px";
+    no.after(slot);
+    no.style.left = r.left + "px";
+    no.style.top = r.top + "px";
+    no.classList.add("loose");
+    void no.offsetWidth;
+  }
+
+  function overlaps(a, b, pad) {
+    return a.left < b.right + pad && a.right > b.left - pad && a.top < b.bottom + pad && a.bottom > b.top - pad;
+  }
+
+  function pickSpot() {
+    const m = 16;
+    const w = no.offsetWidth, h = no.offsetHeight;
+    const vw = innerWidth, vh = innerHeight;
+    const yr = yes.getBoundingClientRect();
+    const cur = no.getBoundingClientRect();
+    const px = pointer ? pointer.x : cur.left + w / 2;
+    const py = pointer ? pointer.y : cur.top + h / 2;
+    let best = null, bestD = -1;
+    for (let i = 0; i < 60; i++) {
+      const x = m + Math.random() * Math.max(1, vw - w - 2 * m);
+      const y = m + Math.random() * Math.max(1, vh - h - 2 * m);
+      const box = { left: x, top: y, right: x + w, bottom: y + h };
+      if (overlaps(box, yr, 24)) continue;
+      const d = Math.hypot(x + w / 2 - px, y + h / 2 - py);
+      const moved = Math.hypot(x - cur.left, y - cur.top);
+      if (d > 160 && moved > 90) return { x, y };
+      if (d > bestD) { bestD = d; best = { x, y }; }
+    }
+    return best || { x: m, y: m };
+  }
+
+  function flee() {
+    const now = performance.now();
+    if (now - lastFlee < 220) return;
+    lastFlee = now;
+    release();
+    const { x, y } = pickSpot();
+    no.style.left = x + "px";
+    no.style.top = y + "px";
+    no.style.rotate = (Math.random() * 30 - 15).toFixed(1) + "deg";
+    attempts++;
+    say();
+  }
+
+  document.addEventListener("pointermove", (e) => {
+    if (e.pointerType !== "mouse" || !no.isConnected) return;
+    pointer = { x: e.clientX, y: e.clientY };
+    const r = no.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const reach = Math.max(r.width, r.height) / 2 + 45;
+    if (Math.hypot(e.clientX - cx, e.clientY - cy) < reach) flee();
+  });
+  no.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    pointer = { x: e.clientX, y: e.clientY };
+    lastFlee = 0;
+    flee();
+  });
+  no.addEventListener("click", (e) => { e.preventDefault(); lastFlee = 0; flee(); });
+  no.addEventListener("focus", () => { lastFlee = 0; pointer = null; flee(); yes.focus(); });
+
+  addEventListener("resize", () => {
+    if (!no.classList.contains("loose")) return;
+    const r = no.getBoundingClientRect();
+    no.style.left = Math.min(Math.max(16, r.left), innerWidth - r.width - 16) + "px";
+    no.style.top = Math.min(Math.max(16, r.top), innerHeight - r.height - 16) + "px";
+  });
+
+  // ---------- emoji rain ----------
+  const sky = document.getElementById("sky");
+  const ctx = sky.getContext("2d");
+  const emoji = ["👅", "💋", "🍒", "🍑", "🔥", "💦", "😈", "❤️‍🔥"];
+  const sprites = {};
+  let parts = [];
+  let running = false;
+  let raining = false;
+  let rainTimer = 0;
+
+  function sprite(ch) {
+    if (sprites[ch]) return sprites[ch];
+    const c = document.createElement("canvas");
+    c.width = c.height = 96;
+    const x = c.getContext("2d");
+    x.font = '72px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
+    x.textAlign = "center";
+    x.textBaseline = "middle";
+    x.fillText(ch, 48, 54);
+    return (sprites[ch] = c);
+  }
+
+  function fit() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    sky.width = innerWidth * dpr;
+    sky.height = innerHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  addEventListener("resize", fit);
+  fit();
+
+  const pick = () => emoji[Math.floor(Math.random() * emoji.length)];
+
+  function burst(x, y, n) {
+    n = n || (reduced ? 10 : 26);
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * Math.PI * 2 + Math.random() * 0.4;
+      const sp = 2 + Math.random() * 5;
+      parts.push({
+        img: sprite(pick()), x, y,
+        vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 1.5,
+        g: 0.09, drag: 0.982,
+        s: 22 + Math.random() * 22,
+        rot: (Math.random() - 0.5) * 0.8, vr: (Math.random() - 0.5) * 0.12,
+        life: 0, max: 80 + Math.random() * 50,
+      });
+    }
+    if (parts.length > 500) parts.splice(0, parts.length - 500);
+    start();
+  }
+
+  function drop() {
+    parts.push({
+      img: sprite(pick()),
+      x: Math.random() * innerWidth, y: -30,
+      vx: 0, vy: 1.2 + Math.random() * 1.8,
+      g: 0, drag: 1, sway: Math.random() * 6,
+      s: 22 + Math.random() * 20,
+      rot: (Math.random() - 0.5) * 0.6, vr: (Math.random() - 0.5) * 0.02,
+      life: 0, max: (innerHeight + 80) / 1.2,
+    });
+  }
+
+  function frame(t) {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    if (raining && t - rainTimer > (reduced ? 600 : 170)) { rainTimer = t; drop(); }
+    parts = parts.filter((p) => p.life < p.max && p.y < innerHeight + 60);
+    for (const p of parts) {
+      p.life++;
+      p.vy += p.g;
+      p.vx *= p.drag; p.vy *= p.drag;
+      p.x += p.vx + (p.sway !== undefined ? Math.sin((p.life + p.sway * 20) / 25) * 0.7 : 0);
+      p.y += p.vy;
+      p.rot += p.vr;
+      const fade = p.g ? 1 - p.life / p.max : Math.min(1, (p.max - p.life) / 30);
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, fade);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.drawImage(p.img, -p.s / 2, -p.s / 2, p.s, p.s);
+      ctx.restore();
+    }
+    if (parts.length || raining) requestAnimationFrame(frame);
+    else running = false;
+  }
+
+  function start() {
+    if (running) return;
+    running = true;
+    requestAnimationFrame(frame);
+  }
+
+  function show() {
+    const w = innerWidth, h = innerHeight;
+    const shots = reduced ? 2 : 7;
+    for (let i = 0; i < shots; i++) {
+      setTimeout(() => burst(w * (0.12 + Math.random() * 0.76), h * (0.12 + Math.random() * 0.5)), i * 350);
+    }
+  }
+
+  function replayBoom() {
+    const b = party.querySelector(".boom");
+    b.style.animation = "none";
+    void b.offsetWidth;
+    b.style.animation = "";
+  }
+
+  // ---------- "ТАК" ----------
+  yes.addEventListener("click", () => {
+    const r = yes.getBoundingClientRect();
+    no.remove();
+    party.hidden = false;
+    if (attempts > 0) {
+      caught.hidden = false;
+      caught.textContent = `А «ні» ти ловила ${attempts} ${plural(attempts)}. Я все бачив 😏`;
+    }
+    burst(r.left + r.width / 2, r.top + r.height / 2, reduced ? 14 : 40);
+    show();
+    raining = true;
+    start();
+    more.focus({ preventScroll: true });
+
+    // secret: tap anywhere for more
+    document.addEventListener("pointerdown", (e) => {
+      if (e.target === more) return;
+      burst(e.clientX, e.clientY, reduced ? 8 : 18);
+    });
+  });
+
+  more.addEventListener("click", () => { replayBoom(); show(); });
+})();
+</script>
+
+</body>
+</html>

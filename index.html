@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="У мене до тебе одне питання">
+<meta property="og:title" content="Підеш на побачення?">
+<meta property="og:description" content="У мене до тебе одне питання">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💘</text></svg>">
+<style>body { margin: 0; } html { box-sizing: border-box; } :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }</style>
+<title>Підеш на побачення?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Nunito:wght@400;700;800&family=Rubik+Mono+One&display=swap">
+<style>
+  /* Layout: one-screen invitation. Question on top, a big candy-heart "ТАК" with a small runaway "НІ" pill beside it; the celebration replaces the question in place. Single committed look (candy valentine), same in both host themes. */
+  :root {
+    color-scheme: light;
+    --blush: #ffe4ec;      /* page ground */
+    --blush-deep: #ffc9da; /* soft shapes */
+    --cherry: #6e0d2c;     /* text */
+    --candy: #e8245a;      /* the heart */
+    --candy-press: #c51747;
+    --mint: #c7f0dc;       /* the "no" candy */
+    --mint-ink: #1f5a43;
+    --lemon: #fff1a6;
+
+    --f-display: "Yeseva One", "Georgia", "Times New Roman", serif;
+    --f-body: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --f-stamp: "Rubik Mono One", "Arial Black", "Helvetica Neue", sans-serif;
+  }
+
+  [hidden] { display: none !important; }
+  html, body { height: 100%; }
+  body {
+    background: var(--blush);
+    color: var(--cherry);
+    font-family: var(--f-body);
+    font-size: 1rem;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .page {
+    min-height: 100%;
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    padding-inline: 16px;
+    padding-block: 32px;
+    position: relative;
+    isolation: isolate;
+  }
+
+  /* faint candy hearts scattered on the ground */
+  .page::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      radial-gradient(circle at 12% 18%, var(--blush-deep) 0 38px, transparent 39px),
+      radial-gradient(circle at 88% 14%, var(--lemon) 0 26px, transparent 27px),
+      radial-gradient(circle at 82% 84%, var(--blush-deep) 0 54px, transparent 55px),
+      radial-gradient(circle at 8% 88%, var(--mint) 0 30px, transparent 31px);
+    opacity: .7;
+  }
+
+  .stage {
+    width: 100%;
+    max-width: 34rem;
+    display: grid;
+    justify-items: center;
+    gap: 1.75rem;
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-family: var(--f-stamp);
+    font-size: .7rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    opacity: .75;
+  }
+
+  h1 {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: clamp(2.2rem, 7vw, 3.6rem);
+    line-height: 1.05;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .choices {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2.25rem;
+    min-height: 10rem;
+  }
+
+  /* the candy heart */
+  .yes {
+    position: relative;
+    width: 11rem;
+    aspect-ratio: 100 / 90;
+    max-width: 100%;
+    border: 0; padding: 0;
+    background: none;
+    cursor: pointer;
+    color: #fff;
+    transition: transform .25s cubic-bezier(.3, 1.6, .5, 1);
+    animation: beat 1.6s ease-in-out infinite;
+  }
+  .yes svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .yes .shape { fill: var(--candy); stroke: var(--candy-press); stroke-width: 3; }
+  .yes .shine { fill: #fff; opacity: .28; }
+  .yes span {
+    position: relative;
+    display: block;
+    padding-bottom: 12%;
+    font-family: var(--f-stamp);
+    font-size: 1.6rem;
+    letter-spacing: .04em;
+    text-shadow: 0 2px 0 var(--candy-press);
+  }
+  .yes:hover { transform: scale(1.08) rotate(-3deg); }
+  .yes:active { transform: scale(.96); }
+  .yes:focus-visible { outline: 3px dashed var(--cherry); outline-offset: 6px; border-radius: 12px; }
+
+  @keyframes beat {
+    0%, 100% { scale: 1; }
+    12% { scale: 1.07; }
+    24% { scale: 1; }
+    36% { scale: 1.05; }
+    48% { scale: 1; }
+  }
+
+  /* the runaway candy */
+  .no {
+    font-family: var(--f-stamp);
+    font-size: .85rem;
+    letter-spacing: .06em;
+    color: var(--mint-ink);
+    background: var(--mint);
+    border: 2px solid var(--mint-ink);
+    border-radius: 999px;
+    padding: .55rem 1.1rem;
+    cursor: pointer;
+    user-select: none;
+    touch-action: none;
+    z-index: 5;
+  }
+  .no.loose {
+    position: fixed;
+    margin: 0;
+    transition: left .32s cubic-bezier(.2, .9, .3, 1.2), top .32s cubic-bezier(.2, .9, .3, 1.2), rotate .32s ease;
+  }
+  .no:focus-visible { outline: 3px dashed var(--mint-ink); outline-offset: 4px; }
+  .no-slot { display: inline-block; visibility: hidden; }
+
+  .joke {
+    min-height: 1.6em;
+    margin: 0;
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+  .joke.pop { animation: pop .3s ease; }
+  @keyframes pop { from { transform: translateY(6px); opacity: 0; } }
+
+  .tally {
+    font-family: var(--f-stamp);
+    font-size: .65rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .6;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* celebration */
+  .party { display: grid; justify-items: center; gap: 1.25rem; text-align: center; max-width: 34rem; }
+  .party h2 {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: clamp(2.4rem, 8vw, 4rem);
+    line-height: 1.05;
+    margin: 0;
+    text-wrap: balance;
+    animation: rise .6s cubic-bezier(.2, 1.4, .4, 1) both;
+  }
+  .party p { margin: 0; font-size: 1.15rem; line-height: 1.5; max-width: 30ch; }
+  .party .note { font-size: .95rem; opacity: .8; }
+  @keyframes rise { from { transform: scale(.6); } }
+
+  .more {
+    font-family: var(--f-stamp);
+    font-size: .8rem;
+    letter-spacing: .06em;
+    color: #fff;
+    background: var(--candy);
+    border: 2px solid var(--candy-press);
+    border-radius: 999px;
+    padding: .7rem 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 var(--candy-press);
+  }
+  .more:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--candy-press); }
+  .more:focus-visible { outline: 3px dashed var(--cherry); outline-offset: 4px; }
+
+  canvas#sky { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yes { animation: none; }
+    .no.loose { transition-duration: .01s; }
+    .party h2 { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<main class="page">
+  <section class="stage" id="ask">
+    <div class="eyebrow">Важливе питання · 1 з 1</div>
+    <h1>Підеш зі мною на&nbsp;побачення?</h1>
+
+    <div class="choices">
+      <button class="yes" id="yes" type="button" aria-label="Так">
+        <svg viewBox="0 0 100 90" aria-hidden="true">
+          <path class="shape" d="M50 86 C 20 66, 3 48, 3 28 C 3 12, 15 3, 29 3 C 39 3, 46 9, 50 17 C 54 9, 61 3, 71 3 C 85 3, 97 12, 97 28 C 97 48, 80 66, 50 86 Z"/>
+          <ellipse class="shine" cx="27" cy="22" rx="11" ry="6" transform="rotate(-30 27 22)"/>
+        </svg>
+        <span>ТАК</span>
+      </button>
+      <button class="no" id="no" type="button">НІ</button>
+    </div>
+
+    <p class="joke" id="joke" aria-live="polite"></p>
+    <div class="tally" id="tally" hidden></div>
+  </section>
+
+  <section class="party" id="party" hidden>
+    <div class="eyebrow">Відповідь отримано</div>
+    <h2>Ура! Це побачення 💖</h2>
+    <p>Я знав, що ти скажеш «так». Чекай на деталі 😉</p>
+    <p class="note" id="caught" hidden></p>
+    <button class="more" id="more" type="button">Ще сердечок</button>
+  </section>
+</main>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<script>
+(() => {
+  const yes = document.getElementById("yes");
+  const no = document.getElementById("no");
+  const joke = document.getElementById("joke");
+  const tally = document.getElementById("tally");
+  const ask = document.getElementById("ask");
+  const party = document.getElementById("party");
+  const caught = document.getElementById("caught");
+  const more = document.getElementById("more");
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---------- runaway "НІ" ----------
+  const jokes = [
+    "Ой, вислизнула 🙈",
+    "Ти впевнена? 🤨",
+    "Подумай ще раз 💭",
+    "Майже спіймала! 😄",
+    "Кнопка «ні» сьогодні вихідна",
+    "А якщо я принесу десерт? 🍰",
+    "Ну будь ласка 🥺",
+    "Відповідь «ні» тимчасово недоступна",
+    "Вона тебе боїться 😅",
+    "Здається, натиснути можна тільки «так» 💘",
+  ];
+  let attempts = 0;
+  let lastFlee = 0;
+  let pointer = null;
+
+  function plural(n) {
+    const t = n % 10, h = n % 100;
+    if (t === 1 && h !== 11) return "раз";
+    if (t >= 2 && t <= 4 && (h < 12 || h > 14)) return "рази";
+    return "разів";
+  }
+
+  function say() {
+    const line = attempts <= jokes.length ? jokes[attempts - 1] : jokes[Math.floor(Math.random() * jokes.length)];
+    joke.textContent = line;
+    joke.classList.remove("pop");
+    void joke.offsetWidth;
+    joke.classList.add("pop");
+    tally.hidden = false;
+    tally.textContent = `Спроб сказати «ні»: ${attempts}`;
+  }
+
+  function release() {
+    if (no.classList.contains("loose")) return;
+    const r = no.getBoundingClientRect();
+    const slot = document.createElement("span");
+    slot.className = "no-slot";
+    slot.style.width = r.width + "px";
+    slot.style.height = r.height + "px";
+    no.after(slot);
+    no.style.left = r.left + "px";
+    no.style.top = r.top + "px";
+    no.classList.add("loose");
+    void no.offsetWidth;
+  }
+
+  function overlaps(a, b, pad) {
+    return a.left < b.right + pad && a.right > b.left - pad && a.top < b.bottom + pad && a.bottom > b.top - pad;
+  }
+
+  function pickSpot() {
+    const m = 16;
+    const w = no.offsetWidth, h = no.offsetHeight;
+    const vw = innerWidth, vh = innerHeight;
+    const yr = yes.getBoundingClientRect();
+    const cur = no.getBoundingClientRect();
+    const px = pointer ? pointer.x : cur.left + w / 2;
+    const py = pointer ? pointer.y : cur.top + h / 2;
+    let best = null, bestD = -1;
+    for (let i = 0; i < 60; i++) {
+      const x = m + Math.random() * Math.max(1, vw - w - 2 * m);
+      const y = m + Math.random() * Math.max(1, vh - h - 2 * m);
+      const box = { left: x, top: y, right: x + w, bottom: y + h };
+      if (overlaps(box, yr, 24)) continue;
+      const d = Math.hypot(x + w / 2 - px, y + h / 2 - py);
+      const moved = Math.hypot(x - cur.left, y - cur.top);
+      if (d > 160 && moved > 90) return { x, y };
+      if (d > bestD) { bestD = d; best = { x, y }; }
+    }
+    return best || { x: m, y: m };
+  }
+
+  function flee() {
+    const now = performance.now();
+    if (now - lastFlee < 220) return;
+    lastFlee = now;
+    release();
+    const { x, y } = pickSpot();
+    no.style.left = x + "px";
+    no.style.top = y + "px";
+    no.style.rotate = (Math.random() * 30 - 15).toFixed(1) + "deg";
+    attempts++;
+    say();
+  }
+
+  // mouse: run when the cursor gets close
+  document.addEventListener("pointermove", (e) => {
+    if (e.pointerType !== "mouse") return;
+    pointer = { x: e.clientX, y: e.clientY };
+    const r = no.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const reach = Math.max(r.width, r.height) / 2 + 45;
+    if (Math.hypot(e.clientX - cx, e.clientY - cy) < reach) flee();
+  });
+  // touch / pen / anything that lands on it anyway
+  no.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    pointer = { x: e.clientX, y: e.clientY };
+    lastFlee = 0;
+    flee();
+  });
+  no.addEventListener("click", (e) => { e.preventDefault(); lastFlee = 0; flee(); });
+  // keyboard: Tab onto it and it jumps away, focus goes to "ТАК"
+  no.addEventListener("focus", () => { lastFlee = 0; pointer = null; flee(); yes.focus(); });
+
+  addEventListener("resize", () => {
+    if (!no.classList.contains("loose")) return;
+    const r = no.getBoundingClientRect();
+    const x = Math.min(Math.max(16, r.left), innerWidth - r.width - 16);
+    const y = Math.min(Math.max(16, r.top), innerHeight - r.height - 16);
+    no.style.left = x + "px";
+    no.style.top = y + "px";
+  });
+
+  // ---------- hearts ----------
+  const sky = document.getElementById("sky");
+  const ctx = sky.getContext("2d");
+  const colors = ["#e8245a", "#ff5c8a", "#ff9ab8", "#c51747", "#fff1a6", "#ffffff"];
+  let parts = [];
+  let running = false;
+  let raining = false;
+  let rainTimer = 0;
+
+  function fit() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    sky.width = innerWidth * dpr;
+    sky.height = innerHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  addEventListener("resize", fit);
+  fit();
+
+  function heartPath(s) {
+    ctx.beginPath();
+    ctx.moveTo(0, -s * 0.25);
+    ctx.bezierCurveTo(0, -s * 0.55, -s * 0.5, -s * 0.55, -s * 0.5, -s * 0.2);
+    ctx.bezierCurveTo(-s * 0.5, s * 0.1, -s * 0.2, s * 0.3, 0, s * 0.5);
+    ctx.bezierCurveTo(s * 0.2, s * 0.3, s * 0.5, s * 0.1, s * 0.5, -s * 0.2);
+    ctx.bezierCurveTo(s * 0.5, -s * 0.55, 0, -s * 0.55, 0, -s * 0.25);
+    ctx.closePath();
+  }
+
+  function burst(x, y, n) {
+    n = n || (reduced ? 14 : 38);
+    const tint = colors[Math.floor(Math.random() * 4)];
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * Math.PI * 2 + Math.random() * 0.3;
+      const sp = 2 + Math.random() * 4.5;
+      parts.push({
+        x, y,
+        vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 1,
+        g: 0.07, drag: 0.982,
+        s: 8 + Math.random() * 12,
+        rot: Math.random() * 6, vr: (Math.random() - 0.5) * 0.2,
+        c: Math.random() < 0.6 ? tint : colors[Math.floor(Math.random() * colors.length)],
+        life: 0, max: 80 + Math.random() * 60,
+      });
+    }
+    if (parts.length > 900) parts.splice(0, parts.length - 900);
+    start();
+  }
+
+  function drop() {
+    parts.push({
+      x: Math.random() * innerWidth, y: -20,
+      vx: 0, vy: 1 + Math.random() * 1.6,
+      g: 0, drag: 1, sway: Math.random() * 6,
+      s: 10 + Math.random() * 16,
+      rot: (Math.random() - 0.5) * 0.6, vr: 0,
+      c: colors[Math.floor(Math.random() * 4)],
+      life: 0, max: (innerHeight + 60) / 1.2,
+    });
+  }
+
+  function frame(t) {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    if (raining && t - rainTimer > (reduced ? 500 : 140)) { rainTimer = t; drop(); }
+    parts = parts.filter((p) => p.life < p.max && p.y < innerHeight + 40);
+    for (const p of parts) {
+      p.life++;
+      p.vy += p.g;
+      p.vx *= p.drag; p.vy *= p.drag;
+      p.x += p.vx + (p.sway !== undefined ? Math.sin((p.life + p.sway * 20) / 25) * 0.6 : 0);
+      p.y += p.vy;
+      p.rot += p.vr;
+      const fade = p.g ? 1 - p.life / p.max : Math.min(1, (p.max - p.life) / 30);
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, fade) * 0.95;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      heartPath(p.s);
+      ctx.fillStyle = p.c;
+      ctx.fill();
+      ctx.restore();
+    }
+    if (parts.length || raining) requestAnimationFrame(frame);
+    else running = false;
+  }
+
+  function start() {
+    if (running) return;
+    running = true;
+    requestAnimationFrame(frame);
+  }
+
+  function show() {
+    const w = innerWidth, h = innerHeight;
+    const shots = reduced ? 2 : 9;
+    for (let i = 0; i < shots; i++) {
+      setTimeout(() => burst(w * (0.15 + Math.random() * 0.7), h * (0.15 + Math.random() * 0.45)), i * 380);
+    }
+  }
+
+  // ---------- "ТАК" ----------
+  yes.addEventListener("click", () => {
+    const r = yes.getBoundingClientRect();
+    no.remove();
+    ask.hidden = true;
+    party.hidden = false;
+    if (attempts > 0) {
+      caught.hidden = false;
+      caught.textContent = `А на «ні» ти намагалася натиснути ${attempts} ${plural(attempts)}. Я все бачив 😄`;
+    }
+    burst(r.left + r.width / 2, r.top + r.height / 2, reduced ? 20 : 60);
+    show();
+    raining = true;
+    start();
+    more.focus({ preventScroll: true });
+
+    // secret: tap anywhere for more hearts
+    document.addEventListener("pointerdown", (e) => {
+      if (e.target === more) return;
+      burst(e.clientX, e.clientY, reduced ? 10 : 24);
+    });
+  });
+
+  more.addEventListener("click", show);
+})();
+</script>
+
+</body>
+</html>
