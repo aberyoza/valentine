@@ -191,6 +191,14 @@
   }
   .party p { margin: 0; font-size: 1.15rem; line-height: 1.5; max-width: 30ch; }
   .party .note { font-size: .95rem; opacity: .8; }
+  .ticket {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    font-family: var(--f-stamp); font-size: 1.05rem; letter-spacing: .06em;
+    color: var(--cherry); background: var(--lemon);
+    border: 2px dashed var(--cherry); border-radius: 12px;
+    padding: .75rem 1.3rem;
+  }
+  .ticket span + span::before { content: "·"; margin-inline: .6rem; opacity: .5; }
   @keyframes rise { from { transform: scale(.6); } }
 
   .more {
@@ -242,7 +250,8 @@
   <section class="party" id="party" hidden>
     <div class="eyebrow">Відповідь отримано</div>
     <h2>Ура! Це побачення 💖</h2>
-    <p>Я знав, що ти скажеш «так». Чекай на деталі 😉</p>
+    <p>Я знав, що ти скажеш «так» 😉</p>
+    <div class="ticket" aria-label="Завтра о 19:00, Хансік"><span>Завтра</span><span>19:00</span><span>Хансік</span></div>
     <p class="note" id="caught" hidden></p>
     <button class="more" id="more" type="button">Ще сердечок</button>
   </section>
